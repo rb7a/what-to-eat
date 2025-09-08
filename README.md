@@ -80,6 +80,8 @@ npm run preview
 
 ### 环境变量配置
 
+#### 你可以切换任何符合 OpanAI 标准的请求地址和模型
+
 ```env
 # 文本生成 API（零一万物）
 VITE_TEXT_GENERATION_BASE_URL=https://api.lingyiwanwu.com/v1/
