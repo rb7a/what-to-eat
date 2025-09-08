@@ -80,8 +80,10 @@ npm run preview
 
 ### Environment Variables
 
+#### You can switch any request address and model that complies with the OpenAI standard
+
 ```env
-# Text Generation API (01.AI)
+# Text Generation API (lingyiwanwu.AI)
 VITE_TEXT_GENERATION_BASE_URL=https://api.lingyiwanwu.com/v1/
 VITE_TEXT_GENERATION_API_KEY=your_text_api_key_here
 VITE_TEXT_GENERATION_MODEL=yi-lightning
