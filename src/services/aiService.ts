@@ -13,25 +13,20 @@ import type {
     CoupleFortuneParams,
     NumberFortuneParams
 } from '@/types'
+import { getTextGenerationConfig } from '@/utils/apiConfig'
 
-// AI服务配置 - 从环境变量读取（菜谱生成模型配置）
-const AI_CONFIG = {
-    baseURL: import.meta.env.VITE_TEXT_GENERATION_BASE_URL || 'https://api.lingyiwanwu.com/v1/',
-    apiKey: import.meta.env.VITE_TEXT_GENERATION_API_KEY,
-    model: import.meta.env.VITE_TEXT_GENERATION_MODEL || 'yi-lightning',
-    temperature: Number(import.meta.env.VITE_TEXT_GENERATION_TEMPERATURE) || 0.7,
-    timeout: Number(import.meta.env.VITE_TEXT_GENERATION_TIMEOUT) || 300000
+// 创建动态axios实例
+const createAiClient = () => {
+    const config = getTextGenerationConfig()
+    return axios.create({
+        baseURL: config.baseUrl,
+        timeout: config.timeout,
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${config.apiKey}`
+        }
+    })
 }
-
-// 创建axios实例
-const aiClient = axios.create({
-    baseURL: AI_CONFIG.baseURL,
-    timeout: AI_CONFIG.timeout,
-    headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${AI_CONFIG.apiKey}`
-    }
-})
 
 /**
  * 调用AI接口生成菜谱
@@ -42,6 +37,9 @@ const aiClient = axios.create({
  */
 export const generateRecipe = async (ingredients: string[], cuisine: CuisineType, customPrompt?: string): Promise<Recipe> => {
     try {
+        const aiClient = createAiClient()
+        const config = getTextGenerationConfig()
+
         // 构建提示词
         let prompt = `${cuisine.prompt}
 
@@ -73,9 +71,9 @@ export const generateRecipe = async (ingredients: string[], cuisine: CuisineType
   "tips": ["技巧1", "技巧2"]
 }`
 
-        // 调用智谱AI接口
+        // 调用AI接口
         const response = await aiClient.post('/chat/completions', {
-            model: AI_CONFIG.model,
+            model: config.model,
             messages: [
                 {
                     role: 'system',
@@ -86,7 +84,7 @@ export const generateRecipe = async (ingredients: string[], cuisine: CuisineType
                     content: prompt
                 }
             ],
-            temperature: AI_CONFIG.temperature,
+            temperature: config.temperature,
             stream: false
         })
 
@@ -239,8 +237,11 @@ export const generateTableMenu = async (config: {
   ]
 }`
 
+        const aiClient = createAiClient()
+        const config = getTextGenerationConfig()
+
         const response = await aiClient.post('/chat/completions', {
-            model: AI_CONFIG.model,
+            model: config.model,
             messages: [
                 {
                     role: 'system',
@@ -304,8 +305,11 @@ export const generateDishRecipe = async (dishName: string, dishDescription: stri
   "tips": ["技巧1", "技巧2"]
 }`
 
+        const aiClient = createAiClient()
+        const config = getTextGenerationConfig()
+
         const response = await aiClient.post('/chat/completions', {
-            model: AI_CONFIG.model,
+            model: config.model,
             messages: [
                 {
                     role: 'system',
@@ -316,7 +320,7 @@ export const generateDishRecipe = async (dishName: string, dishDescription: stri
                     content: prompt
                 }
             ],
-            temperature: 0.7,
+            temperature: config.temperature,
             stream: false
         })
 
@@ -378,8 +382,11 @@ export const generateCustomRecipe = async (ingredients: string[], customPrompt: 
   "tips": ["技巧1", "技巧2"]
 }`
 
+        const aiClient = createAiClient()
+        const config = getTextGenerationConfig()
+
         const response = await aiClient.post('/chat/completions', {
-            model: AI_CONFIG.model,
+            model: config.model,
             messages: [
                 {
                     role: 'system',
@@ -390,7 +397,7 @@ export const generateCustomRecipe = async (ingredients: string[], customPrompt: 
                     content: prompt
                 }
             ],
-            temperature: AI_CONFIG.temperature,
+            temperature: config.temperature,
             max_tokens: 2000,
             stream: false
         })
@@ -746,8 +753,11 @@ const generateFallbackWinePairing = (cuisine: CuisineType, ingredients: string[]
  */
 export const testAIConnection = async (): Promise<boolean> => {
     try {
+        const aiClient = createAiClient()
+        const config = getTextGenerationConfig()
+
         const response = await aiClient.post('/chat/completions', {
-            model: AI_CONFIG.model,
+            model: config.model,
             messages: [
                 {
                     role: 'user',
@@ -1530,8 +1540,7 @@ export const generateNumberFortune = async (params: NumberFortuneParams): Promis
     }
 }
 
-// 导出配置更新函数，供外部使用
-export { AI_CONFIG }
+// 配置现在通过settings store管理，不再导出静态配置
 
 /**
  * 通用聊天（流式）
@@ -1546,16 +1555,17 @@ export const chatStream = async (
     onComplete?: (fullText: string) => void,
     onError?: (err: unknown) => void
 ): Promise<void> => {
-    const url = AI_CONFIG.baseURL.replace(/\/$/, '') + '/chat/completions'
+    const config = getTextGenerationConfig()
+    const url = config.baseUrl.replace(/\/$/, '') + '/chat/completions'
     const headers: Record<string, string> = {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${AI_CONFIG.apiKey}`
+        Authorization: `Bearer ${config.apiKey}`
     }
 
     const body = JSON.stringify({
-        model: AI_CONFIG.model,
+        model: config.model,
         messages,
-        temperature: AI_CONFIG.temperature,
+        temperature: config.temperature,
         stream: true
     })
 

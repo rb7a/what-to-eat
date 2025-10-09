@@ -21,6 +21,8 @@
 
                 <!-- 导航菜单 -->
                 <div class="flex items-center gap-2">
+                    <!-- 设置按钮 -->
+                    <SettingsButton />
                     <!-- 主要功能 -->
                     <router-link
                         to="/"
@@ -150,11 +152,15 @@
                             <div class="text-xs text-gray-600 font-medium">{{ pageSubtitle }}</div>
                         </div>
                     </router-link>
-                    <button @click="showMobileMenu = !showMobileMenu" class="p-2 bg-gray-100 hover:bg-gray-200 rounded-lg border-2 border-[#0A0910] transition-colors">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                        </svg>
-                    </button>
+                    <div class="flex items-center gap-2">
+                        <!-- 移动端设置按钮 -->
+                        <SettingsButton />
+                        <button @click="showMobileMenu = !showMobileMenu" class="p-2 bg-gray-100 hover:bg-gray-200 rounded-lg border-2 border-[#0A0910] transition-colors">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                            </svg>
+                        </button>
+                    </div>
                 </div>
 
                 <!-- 移动端菜单 -->
@@ -249,6 +255,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useRoute } from 'vue-router'
+import SettingsButton from './SettingsButton.vue'
 
 const showMobileMenu = ref(false)
 const showMoreMenu = ref(false)
