@@ -10,6 +10,7 @@
 [![Vercel](https://img.shields.io/badge/🚀_Vercel-yffs.vercel.app-black?style=for-the-badge&logo=vercel)](https://yffs.vercel.app/)
 [![Netlify](https://img.shields.io/badge/🌐_Netlify-whattoeatai.netlify.app-00C7B7?style=for-the-badge&logo=netlify)](https://whattoeatai.netlify.app/)
 [![GitHub](https://img.shields.io/badge/GitHub-liu--ziting/what--to--eat-black?style=for-the-badge&logo=github)](https://github.com/liu-ziting/what-to-eat)
+[![Config System](https://img.shields.io/badge/⚙️_Dynamic_Config-Real--time_AI_Settings-blue?style=for-the-badge)](https://github.com/liu-ziting/what-to-eat#%EF%B8%8F-动态配置系统)
 
 ## 🚀 核心功能
 
@@ -20,6 +21,7 @@
 -   **酱汁设计** - 定制化调料配方
 -   **收藏管理** - 保存和管理喜爱的菜谱
 -   **料理占卜** - 趣味性饮食运势
+-   **⚙️ 配置管理** - 动态配置 AI 模型参数，支持多服务商切换
 
 ## 🛠️ 技术栈
 
@@ -51,6 +53,8 @@ cp .env.example .env
 
 # 启动开发服务器
 npm run dev
+
+# 🎯 首次启动后，点击导航栏的 ⚙️ 图标可以动态配置AI模型参数
 ```
 
 ### 构建部署
@@ -80,19 +84,50 @@ npm run preview
 
 ### 环境变量配置
 
-#### 你可以切换任何符合 OpanAI 标准的请求地址和模型
+#### 你可以切换任何符合 OpenAI 标准的请求地址和模型
 
 ```env
-# 文本生成 API（零一万物）
+# 菜谱生成模型配置（文本生成）
 VITE_TEXT_GENERATION_BASE_URL=https://api.lingyiwanwu.com/v1/
 VITE_TEXT_GENERATION_API_KEY=your_text_api_key_here
 VITE_TEXT_GENERATION_MODEL=yi-lightning
+VITE_TEXT_GENERATION_TEMPERATURE=0.7
+VITE_TEXT_GENERATION_TIMEOUT=300000
 
-# 图片生成 API（智谱 AI）
+# 图片生成模型配置
 VITE_IMAGE_GENERATION_BASE_URL=https://open.bigmodel.cn/api/paas/v4/
 VITE_IMAGE_GENERATION_API_KEY=your_image_api_key_here
 VITE_IMAGE_GENERATION_MODEL=cogview-3-flash
 ```
+
+### ⚙️ 动态配置系统
+
+应用内置了强大的配置管理系统，支持运行时动态修改 AI 模型配置：
+
+#### 🎯 功能特性
+
+-   **实时配置** - 无需重启应用，配置修改立即生效
+-   **持久化存储** - 用户配置自动保存到本地
+-   **分离管理** - 菜谱生成和图片生成模型独立配置
+-   **配置验证** - 内置 API 连接测试功能
+-   **一键恢复** - 支持恢复环境变量默认配置
+
+#### 🚀 使用方法
+
+1. 点击导航栏右侧的 ⚙️ 设置按钮
+2. 在弹窗中修改 API 地址、密钥、模型等参数
+3. 点击"保存设置"立即应用配置
+4. 使用"测试配置"验证设置是否正确
+
+#### 📋 支持的配置项
+
+-   **API 地址** - 支持任何 OpenAI 兼容的 API 服务
+-   **API 密钥** - 安全的密码形式输入
+-   **模型名称** - 自定义使用的 AI 模型
+-   **温度参数** - 控制生成内容的创造性(0-1)
+-   **超时设置** - 自定义 API 请求超时时间
+
+> 💡 **提示**: 访问 `/settings-demo` 查看完整的配置系统演示
 
 ## 📁 项目结构
 
@@ -105,6 +140,9 @@ src/
 │   ├── GlobalNavigation.vue  # 全局导航
 │   ├── RecipeCard.vue        # 菜谱卡片
 │   ├── NutritionAnalysis.vue # 营养分析
+│   ├── SettingsModal.vue     # 设置弹窗 🆕
+│   ├── SettingsButton.vue    # 设置按钮 🆕
+│   ├── ConfigTest.vue        # 配置测试 🆕
 │   └── ...
 ├── config/              # 配置文件
 │   ├── ai.ts                 # AI 模型配置
@@ -116,13 +154,18 @@ src/
 │   ├── favoriteService.ts    # 收藏服务
 │   ├── imageService.ts       # 图片服务
 │   └── ...
+├── stores/              # 状态管理 🆕
+│   └── settings.js           # 配置状态管理 🆕
+├── utils/               # 工具函数
+│   ├── apiConfig.js          # API配置工具 🆕
+│   └── ...
 ├── views/               # 页面组件
 │   ├── Home.vue              # 首页
 │   ├── Favorites.vue         # 收藏页
 │   ├── SauceDesign.vue       # 酱汁设计
+│   ├── SettingsDemo.vue      # 配置演示页 🆕
 │   └── ...
 ├── types/               # TypeScript 类型定义
-├── utils/               # 工具函数
 └── router/              # 路由配置
 ```
 
@@ -142,9 +185,38 @@ src/
 
 ### AI 服务集成
 
--   文本生成：`src/services/aiService.ts`
--   图片生成：`src/services/imageService.ts`
--   支持多个 AI 服务商切换
+-   **文本生成**：`src/services/aiService.ts` - 支持动态配置切换
+-   **图片生成**：`src/services/imageService.ts` - 多服务商支持
+-   **配置管理**：`src/stores/settings.js` - 实时配置管理
+-   **API 工具**：`src/utils/apiConfig.js` - 统一配置接口
+
+### 配置系统开发
+
+#### 添加新的配置项
+
+```javascript
+// 在 settings.js 中扩展配置结构
+const defaultSettings = {
+    textGeneration: {
+        // 现有配置...
+        newParam: 'default_value' // 新增配置
+    }
+}
+```
+
+#### 使用动态配置
+
+```javascript
+import { useSettingsStore } from '@/stores/settings'
+import { createTextGenerationRequest } from '@/utils/apiConfig'
+
+// 获取当前配置
+const settingsStore = useSettingsStore()
+const config = settingsStore.getTextGenerationConfig()
+
+// 创建API请求
+const requestConfig = createTextGenerationRequest(messages)
+```
 
 ## 📈 Star History
 
