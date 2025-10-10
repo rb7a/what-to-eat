@@ -16,6 +16,25 @@ const getDefaultSettings = () => ({
     }
 })
 
+// 动态获取最新的环境变量配置（用于重置功能）
+const getLatestEnvSettings = () => {
+    // 强制重新读取环境变量
+    return {
+        textGeneration: {
+            baseUrl: import.meta.env.VITE_TEXT_GENERATION_BASE_URL || 'https://api.lingyiwanwu.com/v1/',
+            apiKey: import.meta.env.VITE_TEXT_GENERATION_API_KEY || '',
+            model: import.meta.env.VITE_TEXT_GENERATION_MODEL || 'yi-lightning',
+            temperature: parseFloat(import.meta.env.VITE_TEXT_GENERATION_TEMPERATURE) || 0.7,
+            timeout: parseInt(import.meta.env.VITE_TEXT_GENERATION_TIMEOUT) || 300000
+        },
+        imageGeneration: {
+            baseUrl: import.meta.env.VITE_IMAGE_GENERATION_BASE_URL || 'https://open.bigmodel.cn/api/paas/v4/',
+            apiKey: import.meta.env.VITE_IMAGE_GENERATION_API_KEY || '',
+            model: import.meta.env.VITE_IMAGE_GENERATION_MODEL || 'cogview-3-flash'
+        }
+    }
+}
+
 // 存储键名
 const STORAGE_KEY = 'yifan-fengshen-settings'
 
@@ -90,10 +109,46 @@ export const useSettingsStore = () => {
 
             // 重置为默认设置
             resetToDefault: () => {
-                const defaultSettings = getDefaultSettings()
-                Object.assign(settings.textGeneration, defaultSettings.textGeneration)
-                Object.assign(settings.imageGeneration, defaultSettings.imageGeneration)
+                const latestSettings = getLatestEnvSettings()
+                Object.assign(settings.textGeneration, latestSettings.textGeneration)
+                Object.assign(settings.imageGeneration, latestSettings.imageGeneration)
                 saveToStorage()
+            },
+
+            // 重新加载环境变量配置（用于.env文件修改后的刷新）
+            reloadEnvSettings: () => {
+                // 清除localStorage中的设置，强制重新读取环境变量
+                localStorage.removeItem(STORAGE_KEY)
+
+                // 重新获取最新的环境变量
+                const latestSettings = getLatestEnvSettings()
+                Object.assign(settings.textGeneration, latestSettings.textGeneration)
+                Object.assign(settings.imageGeneration, latestSettings.imageGeneration)
+
+                // 不保存到localStorage，让下次启动时重新读取环境变量
+                console.log('已重新加载环境变量配置，请刷新页面以应用最新配置')
+                return latestSettings
+            },
+
+            // 检查环境变量是否有更新
+            checkEnvUpdates: () => {
+                const currentEnv = getLatestEnvSettings()
+                const currentSettings = settings
+
+                // 比较当前设置和环境变量是否一致
+                const hasUpdates =
+                    currentEnv.textGeneration.baseUrl !== currentSettings.textGeneration.baseUrl ||
+                    currentEnv.textGeneration.apiKey !== currentSettings.textGeneration.apiKey ||
+                    currentEnv.textGeneration.model !== currentSettings.textGeneration.model ||
+                    currentEnv.imageGeneration.baseUrl !== currentSettings.imageGeneration.baseUrl ||
+                    currentEnv.imageGeneration.apiKey !== currentSettings.imageGeneration.apiKey ||
+                    currentEnv.imageGeneration.model !== currentSettings.imageGeneration.model
+
+                return {
+                    hasUpdates,
+                    currentEnv,
+                    currentSettings
+                }
             },
 
             // 清除所有设置

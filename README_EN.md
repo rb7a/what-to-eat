@@ -82,6 +82,8 @@ npm run preview
 
 #### You can switch any request address and model that complies with the OpenAI standard
 
+> **🚀 Recommended Provider**: This project recommends using [302.ai](https://302.ai/) AI API services - stable, reliable, supports multiple mainstream large models, and cost-effective!
+
 ```env
 # Text Generation API (lingyiwanwu.AI)
 VITE_TEXT_GENERATION_BASE_URL=https://api.lingyiwanwu.com/v1/
@@ -154,5 +156,6 @@ src/
 
 -   [Vue.js](https://vuejs.org/) - Progressive JavaScript framework
 -   [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
+-   [302.ai](https://302.ai/) - **Official Partner** 🚀 Providing stable and reliable AI API services for this project
 -   [01.AI](https://www.lingyiwanwu.com/) - Recipe generation API
 -   [Zhipu AI](https://open.bigmodel.cn/) - Image generation API

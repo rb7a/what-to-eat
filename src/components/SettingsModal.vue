@@ -11,6 +11,46 @@
             </div>
 
             <div class="space-y-8">
+                <!-- 302.ai 推荐广告 -->
+                <div class="hidden bg-gradient-to-r from-blue-50 to-purple-50 border-2 border-blue-200 rounded-lg p-4">
+                    <div class="flex items-start gap-4">
+                        <div class="flex-shrink-0">
+                            <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                                <span class="text-white text-lg font-bold">302</span>
+                            </div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-center gap-2 mb-2">
+                                <h3 class="text-lg font-semibold text-gray-800">🚀 推荐API服务商</h3>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-3">
+                                本项目正在使用 <strong>302.ai</strong> 提供的高质量AI API服务。302.ai 提供稳定可靠的AI模型接口，支持多种主流大模型，价格优惠，服务稳定。
+                            </p>
+                            <div class="flex flex-wrap gap-2 mb-3">
+                                <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">✓ 多模型支持</span>
+                                <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">✓ 价格优惠</span>
+                                <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">✓ 服务稳定</span>
+                                <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">✓ 快速接入</span>
+                            </div>
+                            <a
+                                href="https://302.ai/"
+                                target="_blank"
+                                class="inline-flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white text-sm px-4 py-2 rounded-lg transition-colors"
+                            >
+                                <span>访问 302.ai</span>
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                                    ></path>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- 菜谱生成模型配置 -->
                 <div class="border rounded-lg p-4">
                     <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">

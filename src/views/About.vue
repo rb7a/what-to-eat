@@ -4,6 +4,111 @@
         <GlobalNavigation />
 
         <div class="max-w-7xl mx-auto space-y-6">
+            <!-- API服务商推荐 -->
+            <div class="relative hidden">
+                <div class="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-4 py-2 rounded-t-lg border-2 border-[#0A0910] border-b-0 inline-block mb-0">
+                    <span class="font-bold text-lg">🚀 API服务商</span>
+                </div>
+                <div class="bg-white border-2 border-[#0A0910] rounded-lg rounded-tl-none p-6">
+                    <div class="mt-4">
+                        <div class="flex items-center gap-2 mb-6">
+                            <span class="text-2xl">⚡</span>
+                            <div>
+                                <p class="text-gray-700 text-sm font-medium">本项目AI服务提供商</p>
+                                <p class="text-gray-500 text-xs">为您推荐优质的AI API服务</p>
+                            </div>
+                        </div>
+
+                        <!-- 302.ai 推荐卡片 -->
+                        <div
+                            class="bg-gradient-to-br from-blue-50 to-purple-50 border-3 border-blue-300 rounded-xl p-6 mb-6 shadow-lg hover:shadow-xl transition-all duration-300 transform"
+                        >
+                            <div class="flex items-start gap-6">
+                                <div class="flex-shrink-0">
+                                    <div
+                                        class="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center border-2 border-white shadow-lg"
+                                    >
+                                        <span class="text-white text-xl font-bold">302</span>
+                                    </div>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center gap-3 mb-3">
+                                        <h3 class="text-xl font-bold text-gray-800">302.ai</h3>
+                                        <span class="bg-gradient-to-r from-orange-400 to-red-500 text-white text-xs px-3 py-1 rounded-full font-medium animate-pulse"
+                                            >官方合作伙伴</span
+                                        >
+                                    </div>
+                                    <p class="text-gray-700 text-sm mb-4 leading-relaxed">
+                                        <strong>302.ai</strong> 是本项目的官方API服务提供商，为"一饭封神"提供稳定可靠的AI大模型服务。
+                                        支持多种主流AI模型，包括GPT、Claude、DeepSeek等，提供高质量的文本生成和图像生成能力。
+                                    </p>
+
+                                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+                                        <div class="bg-white rounded-lg p-3 border border-blue-200">
+                                            <div class="text-center">
+                                                <div class="text-blue-500 text-lg mb-1">🤖</div>
+                                                <div class="text-xs font-medium text-gray-700">多模型支持</div>
+                                            </div>
+                                        </div>
+                                        <div class="bg-white rounded-lg p-3 border border-green-200">
+                                            <div class="text-center">
+                                                <div class="text-green-500 text-lg mb-1">💰</div>
+                                                <div class="text-xs font-medium text-gray-700">价格优惠</div>
+                                            </div>
+                                        </div>
+                                        <div class="bg-white rounded-lg p-3 border border-purple-200">
+                                            <div class="text-center">
+                                                <div class="text-purple-500 text-lg mb-1">⚡</div>
+                                                <div class="text-xs font-medium text-gray-700">响应快速</div>
+                                            </div>
+                                        </div>
+                                        <div class="bg-white rounded-lg p-3 border border-orange-200">
+                                            <div class="text-center">
+                                                <div class="text-orange-500 text-lg mb-1">🛡️</div>
+                                                <div class="text-xs font-medium text-gray-700">服务稳定</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex flex-wrap items-center gap-3">
+                                        <a
+                                            href="https://302.ai/"
+                                            target="_blank"
+                                            class="inline-flex items-center gap-2 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white text-sm px-6 py-3 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
+                                        >
+                                            <span class="font-medium">访问 302.ai</span>
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    stroke-width="2"
+                                                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                                                ></path>
+                                            </svg>
+                                        </a>
+                                        <div class="text-xs text-gray-500">
+                                            <span class="inline-flex items-center gap-1">
+                                                <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                                                正在为本项目提供AI服务
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-gradient-to-r from-gray-50 to-blue-50 border-2 border-gray-200 rounded-lg p-4">
+                            <div class="flex items-center gap-3">
+                                <div class="text-2xl">💡</div>
+                                <div>
+                                    <p class="text-sm font-medium text-gray-800">为什么选择 302.ai？</p>
+                                    <p class="text-xs text-gray-600">本项目经过多家API服务商对比测试，302.ai 在稳定性、响应速度和成本控制方面表现优异，是我们的首选合作伙伴。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- 关于作者 -->
             <div class="relative mt-6">
                 <div class="bg-indigo-500 text-white px-4 py-2 rounded-t-lg border-2 border-[#0A0910] border-b-0 inline-block mb-0">
@@ -101,6 +206,7 @@
                     </div>
                 </div>
             </div>
+
             <!-- 项目简介 -->
             <div class="relative">
                 <div class="bg-blue-500 text-white px-4 py-2 rounded-t-lg border-2 border-[#0A0910] border-b-0 inline-block mb-0">

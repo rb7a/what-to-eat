@@ -11,6 +11,7 @@ import HowToCook from './views/HowToCook.vue'
 import SauceDesign from './views/SauceDesign.vue'
 import FortuneCooking from './views/FortuneCooking.vue'
 import SettingsDemo from './views/SettingsDemo.vue'
+import { autoRefreshEnvSettings } from './utils/envWatcher'
 import './style.css'
 
 const routes = [
@@ -31,4 +32,11 @@ const router = createRouter({
     routes
 })
 
-createApp(App).use(router).mount('#app')
+// 初始化应用
+const app = createApp(App).use(router)
+
+// 在应用挂载前检查环境变量变化并自动刷新
+autoRefreshEnvSettings()
+
+// 挂载应用
+app.mount('#app')
