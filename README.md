@@ -21,14 +21,14 @@
 -   **酱汁设计** - 定制化调料配方
 -   **收藏管理** - 保存和管理喜爱的菜谱
 -   **料理占卜** - 趣味性饮食运势
--   **⚙️ 配置管理** - 动态配置 AI 模型参数，支持多服务商切换
+-   **配置管理** - 动态配置 AI 模型参数，支持多服务商切换
 
 ## 🛠️ 技术栈
 
 -   **前端框架：** Vue 3.4 + Composition API + TypeScript 5.3+
 -   **样式方案：** Tailwind CSS 3.4+
 -   **构建工具：** Vite 5.0+
--   **AI 服务：** 零一万物 Yi-Lightning + 智谱 AI CogView-3-Flash
+-   **AI 服务：** 零一万物 Yi-Lightning / DeepSeek V3 + 智谱 CogView-3-Flash
 -   **部署平台：** Vercel + Netlify
 
 ## 🚀 快速开始
@@ -240,4 +240,5 @@ const requestConfig = createTextGenerationRequest(messages)
 -   [Vue.js](https://vuejs.org/) - 渐进式 JavaScript 框架
 -   [Tailwind CSS](https://tailwindcss.com/) - 实用优先的 CSS 框架
 -   [零一万物](https://www.lingyiwanwu.com/) - 菜谱生成 API
+-   [DeepSeek](https://www.deepseek.com) - 菜谱生成 API
 -   [智谱 AI](https://open.bigmodel.cn/) - 图片生成 API
