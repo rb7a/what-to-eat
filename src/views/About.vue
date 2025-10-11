@@ -21,16 +21,19 @@
 
                         <!-- 302.AI 推荐卡片 -->
                         <div
-                            class="bg-gradient-to-br from-blue-50 to-purple-50 border-3 border-blue-300 rounded-xl p-6 mb-6 shadow-lg hover:shadow-xl transition-all duration-300 transform"
+                            class="bg-gradient-to-br from-blue-50 to-purple-50 border-3 border-blue-300 rounded-xl p-4 md:p-6 mb-6 shadow-lg hover:shadow-xl transition-all duration-300 transform"
                         >
-                            <div class="flex items-start gap-6">
-                                <div class="flex-shrink-0">
+                            <!-- 手机端：垂直布局，桌面端：水平布局 -->
+                            <div class="flex flex-col md:flex-row md:items-start gap-4 md:gap-6">
+                                <!-- Logo 区域 -->
+                                <div class="flex-shrink-0 flex justify-center md:justify-start">
                                     <div class="w-16 h-16 from-blue-500 to-purple-600 rounded-xl flex items-center justify-center">
                                         <img src="/logo.svg" alt="302.AI Logo" class="w-12 h-12" />
                                     </div>
                                 </div>
-                                <div class="flex-1">
-                                    <div class="flex items-center gap-3 mb-3">
+                                <!-- 内容区域 -->
+                                <div class="flex-1 text-center md:text-left">
+                                    <div class="flex flex-col md:flex-row items-center md:items-center gap-2 md:gap-3 mb-3">
                                         <h3 class="text-xl font-bold text-gray-800">302.AI</h3>
                                         <span class="bg-gradient-to-r from-orange-400 to-red-500 text-white text-xs px-3 py-1 rounded-full font-medium animate-pulse"
                                             >官方合作伙伴</span
@@ -40,34 +43,34 @@
                                         <strong>302.AI</strong>是一个按用量付费的企业级AI资源平台，提供市场上最新、最全面的AI模型和API，以及多种开箱即用的在线AI应用
                                     </p>
 
-                                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
-                                        <div class="bg-white rounded-lg p-3 border border-blue-200">
+                                    <div class="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3 mb-4">
+                                        <div class="bg-white rounded-lg p-2 md:p-3 border border-blue-200">
                                             <div class="text-center">
-                                                <div class="text-blue-500 text-lg mb-1">🤖</div>
+                                                <div class="text-blue-500 text-base md:text-lg mb-1">🤖</div>
                                                 <div class="text-xs font-medium text-gray-700">多模型支持</div>
                                             </div>
                                         </div>
-                                        <div class="bg-white rounded-lg p-3 border border-green-200">
+                                        <div class="bg-white rounded-lg p-2 md:p-3 border border-green-200">
                                             <div class="text-center">
-                                                <div class="text-green-500 text-lg mb-1">💰</div>
+                                                <div class="text-green-500 text-base md:text-lg mb-1">💰</div>
                                                 <div class="text-xs font-medium text-gray-700">价格优惠</div>
                                             </div>
                                         </div>
-                                        <div class="bg-white rounded-lg p-3 border border-purple-200">
+                                        <div class="bg-white rounded-lg p-2 md:p-3 border border-purple-200">
                                             <div class="text-center">
-                                                <div class="text-purple-500 text-lg mb-1">⚡</div>
+                                                <div class="text-purple-500 text-base md:text-lg mb-1">⚡</div>
                                                 <div class="text-xs font-medium text-gray-700">响应快速</div>
                                             </div>
                                         </div>
-                                        <div class="bg-white rounded-lg p-3 border border-orange-200">
+                                        <div class="bg-white rounded-lg p-2 md:p-3 border border-orange-200">
                                             <div class="text-center">
-                                                <div class="text-orange-500 text-lg mb-1">🛡️</div>
+                                                <div class="text-orange-500 text-base md:text-lg mb-1">🛡️</div>
                                                 <div class="text-xs font-medium text-gray-700">服务稳定</div>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="flex flex-wrap items-center gap-3">
+                                    <div class="flex flex-col md:flex-row flex-wrap items-center md:items-center gap-3">
                                         <a
                                             href="https://share.302.AI/DymMSI"
                                             target="_blank"
@@ -83,7 +86,7 @@
                                                 ></path>
                                             </svg>
                                         </a>
-                                        <div class="text-xs text-gray-500">
+                                        <div class="text-xs text-gray-500 text-center md:text-left">
                                             <span class="inline-flex items-center gap-1">
                                                 <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
                                                 正在为本项目提供AI服务

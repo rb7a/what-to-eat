@@ -1,9 +1,9 @@
 <template>
-    <div v-if="isVisible" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-        <div class="bg-white rounded-lg max-w-2xl w-full mx-4 max-h-[90vh] flex flex-col">
+    <div v-if="isVisible" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-2 md:p-4">
+        <div class="bg-white rounded-lg max-w-2xl w-full max-h-[95vh] md:max-h-[90vh] flex flex-col">
             <!-- 固定头部 -->
-            <div class="flex justify-between items-center p-6 pb-4 border-b">
-                <h2 class="text-2xl font-bold text-gray-800">系统设置</h2>
+            <div class="flex justify-between items-center p-4 md:p-6 pb-3 md:pb-4 border-b">
+                <h2 class="text-xl md:text-2xl font-bold text-gray-800">系统设置</h2>
                 <button @click="closeModal" class="text-gray-500 hover:text-gray-700">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -12,24 +12,25 @@
             </div>
 
             <!-- 可滚动内容区域 -->
-            <div class="flex-1 overflow-y-auto px-6 py-4">
-                <div class="space-y-6">
+            <div class="flex-1 overflow-y-auto px-4 md:px-6 py-3 md:py-4">
+                <div class="space-y-4 md:space-y-6">
                     <!-- 302.AI 推荐广告 -->
-                    <div class="bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 rounded-lg p-3">
-                        <div class="flex items-center gap-3">
-                            <div class="flex-shrink-0">
+                    <div class="bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 rounded-lg p-3 md:p-4">
+                        <!-- 手机端：垂直布局，桌面端：水平布局 -->
+                        <div class="flex flex-col md:flex-row md:items-center gap-3">
+                            <div class="flex-shrink-0 flex justify-center md:justify-start">
                                 <div class="w-10 h-10 from-blue-500 to-purple-600 rounded-xl flex items-center justify-center">
-                                    <img src="/logo.svg" alt="302.AI Logo" class="w-12 h-12" />
+                                    <img src="/logo.svg" alt="302.AI Logo" class="w-8 h-8 md:w-10 md:h-10" />
                                 </div>
                             </div>
-                            <div class="flex-1">
-                                <h3 class="text-base font-semibold text-gray-800 mb-1">🚀 推荐API服务商</h3>
-                                <p class="text-xs text-gray-600 mb-2">
+                            <div class="flex-1 text-center md:text-left">
+                                <h3 class="text-sm md:text-base font-semibold text-gray-800 mb-1">🚀 推荐API服务商</h3>
+                                <p class="text-xs text-gray-600 mb-2 leading-relaxed">
                                     本项目正在使用 <strong>302.AI</strong> 提供的高质量AI API服务！<strong>302.AI</strong>
                                     是一个按用量付费的企业级AI资源平台，提供市场上最新、最全面的AI模型和API，以及多种开箱即用的在线AI应用
                                 </p>
-                                <div class="flex items-center gap-2">
-                                    <div class="flex flex-wrap gap-1">
+                                <div class="flex flex-col md:flex-row items-center gap-2">
+                                    <div class="flex flex-wrap gap-1 justify-center md:justify-start">
                                         <span class="bg-green-100 text-green-800 text-xs px-2 py-0.5 rounded">✓ 多模型</span>
                                         <span class="bg-green-100 text-green-800 text-xs px-2 py-0.5 rounded">✓ 优惠</span>
                                         <span class="bg-green-100 text-green-800 text-xs px-2 py-0.5 rounded">✓ 稳定</span>
@@ -37,7 +38,7 @@
                                     <a
                                         href="https://share.302.AI/DymMSI"
                                         target="_blank"
-                                        class="inline-flex items-center gap-1 bg-blue-500 hover:bg-blue-600 text-white text-xs px-3 py-1 rounded transition-colors ml-auto"
+                                        class="inline-flex items-center gap-1 bg-blue-500 hover:bg-blue-600 text-white text-xs px-3 py-1 rounded transition-colors md:ml-auto"
                                     >
                                         <span>访问</span>
                                         <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -58,10 +59,10 @@
                     <div class="border rounded-lg">
                         <button
                             @click="isTextConfigExpanded = !isTextConfigExpanded"
-                            class="w-full p-4 flex items-center justify-between text-left hover:bg-gray-50 transition-colors"
+                            class="w-full p-3 md:p-4 flex items-center justify-between text-left hover:bg-gray-50 transition-colors"
                         >
-                            <h3 class="text-lg font-semibold text-gray-800 flex items-center">
-                                <svg class="w-5 h-5 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <h3 class="text-base md:text-lg font-semibold text-gray-800 flex items-center">
+                                <svg class="w-4 h-4 md:w-5 md:h-5 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path
                                         stroke-linecap="round"
                                         stroke-linejoin="round"
@@ -82,8 +83,8 @@
                             </svg>
                         </button>
 
-                        <div v-show="isTextConfigExpanded" class="px-4 pb-4">
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div v-show="isTextConfigExpanded" class="px-3 md:px-4 pb-3 md:pb-4">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700 mb-1">API地址</label>
                                     <input
@@ -143,10 +144,10 @@
                     <div class="border rounded-lg">
                         <button
                             @click="isImageConfigExpanded = !isImageConfigExpanded"
-                            class="w-full p-4 flex items-center justify-between text-left hover:bg-gray-50 transition-colors"
+                            class="w-full p-3 md:p-4 flex items-center justify-between text-left hover:bg-gray-50 transition-colors"
                         >
-                            <h3 class="text-lg font-semibold text-gray-800 flex items-center">
-                                <svg class="w-5 h-5 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <h3 class="text-base md:text-lg font-semibold text-gray-800 flex items-center">
+                                <svg class="w-4 h-4 md:w-5 md:h-5 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path
                                         stroke-linecap="round"
                                         stroke-linejoin="round"
@@ -167,8 +168,8 @@
                             </svg>
                         </button>
 
-                        <div v-show="isImageConfigExpanded" class="px-4 pb-4">
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div v-show="isImageConfigExpanded" class="px-3 md:px-4 pb-3 md:pb-4">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700 mb-1">API地址</label>
                                     <input
@@ -205,10 +206,12 @@
             </div>
 
             <!-- 固定底部按钮 -->
-            <div class="flex justify-end space-x-3 p-6 pt-4 border-t bg-gray-50 rounded-b-lg">
-                <button @click="resetToDefault" class="px-4 py-2 text-gray-600 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors">恢复默认</button>
-                <button @click="closeModal" class="px-4 py-2 text-gray-600 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors">取消</button>
-                <button @click="saveSettings" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors">保存设置</button>
+            <div class="flex flex-col md:flex-row justify-end gap-2 md:gap-3 p-4 md:p-6 pt-3 md:pt-4 border-t bg-gray-50 rounded-b-lg">
+                <button @click="resetToDefault" class="px-4 py-2 text-gray-600 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors text-sm md:text-base">
+                    恢复默认
+                </button>
+                <button @click="closeModal" class="px-4 py-2 text-gray-600 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors text-sm md:text-base">取消</button>
+                <button @click="saveSettings" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors text-sm md:text-base">保存设置</button>
             </div>
         </div>
     </div>
