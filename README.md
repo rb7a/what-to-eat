@@ -28,7 +28,7 @@
 -   **前端框架：** Vue 3.4 + Composition API + TypeScript 5.3+
 -   **样式方案：** Tailwind CSS 3.4+
 -   **构建工具：** Vite 5.0+
--   **AI 服务：** 零一万物 Yi-Lightning / DeepSeek V3 + 智谱 CogView-3-Flash
+-   **AI 服务：** 302.AI
 -   **部署平台：** Vercel + Netlify
 
 ## ⚡ AI 服务推荐
