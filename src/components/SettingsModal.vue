@@ -230,7 +230,7 @@ const emit = defineEmits(['close', 'save'])
 const settingsStore = useSettingsStore()
 
 // 折叠状态
-const isTextConfigExpanded = ref(false)
+const isTextConfigExpanded = ref(true) // 默认展开菜谱生成模型配置
 const isImageConfigExpanded = ref(false)
 
 // 文本生成配置
