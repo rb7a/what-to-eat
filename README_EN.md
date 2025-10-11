@@ -26,7 +26,7 @@ An AI-powered intelligent recipe generation platform supporting Chinese Eight Gr
 -   **Frontend Framework:** Vue 3.4 + Composition API + TypeScript 5.3+
 -   **Styling:** Tailwind CSS 3.4+
 -   **Build Tool:** Vite 5.0+
--   **AI Services:** Yi-Lightning (01.AI) + CogView-3-Flash (Zhipu AI)
+-   **AI Services:** 302.AI
 -   **Deployment:** Vercel + Netlify
 
 ## 🚀 Quick Start
