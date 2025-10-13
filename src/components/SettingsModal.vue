@@ -60,11 +60,8 @@
 
                                     <!-- 描述文字 -->
                                     <div class="mb-4 md:mb-6">
-                                        <p class="text-sm md:text-base text-white/90 mb-3 leading-relaxed hidden md:block">
+                                        <p class="text-sm md:text-base text-white/90 mb-3 leading-relaxed ">
                                             <strong class="text-yellow-300">302.AI</strong> 是一个按用量付费的企业级AI资源平台，提供市场上最新、最全面的AI模型和API，以及多种开箱即用的在线AI应用
-                                        </p>
-                                        <p class="text-xs text-white/80 mb-3 leading-relaxed md:hidden">
-                                            <strong class="text-yellow-300">302.AI</strong> 企业级AI平台，最新最全AI模型
                                         </p>
                                         
                                         <!-- 特色标签 -->
