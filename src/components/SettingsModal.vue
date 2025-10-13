@@ -14,10 +14,10 @@
             <span class="text-sm text-gray-700">{{ toast.message }}</span>
         </div>
 
-        <div class="bg-white w-full h-full flex flex-col">
-            <!-- 固定头部 -->
-            <div class="flex justify-between items-center px-4 py-3 md:px-6 md:py-4 border-b border-gray-200 bg-white flex-shrink-0">
-                <h2 class="text-lg md:text-xl font-semibold text-gray-800">模型配置</h2>
+        <div class="bg-white w-full h-full flex flex-col md:flex-row">
+            <!-- 移动端：显示全局头部 -->
+            <div class="md:hidden flex justify-between items-center px-4 py-3 border-b border-gray-200 bg-white flex-shrink-0">
+                <h2 class="text-lg font-semibold text-gray-800">模型配置</h2>
                 <button @click="closeModal" class="text-gray-400 hover:text-gray-600 p-1">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -26,13 +26,13 @@
             </div>
 
             <!-- 主要内容区域 -->
-            <div class="flex-1 overflow-hidden">
+            <div class="flex-1 md:flex md:h-full overflow-hidden">
                 <!-- 移动端：垂直滚动布局，PC端：左右布局 -->
-                <div class="h-full md:flex md:overflow-hidden">
+                <div class="h-full md:flex md:w-full md:overflow-hidden">
                     <!-- 移动端和PC端的统一滚动容器 -->
-                    <div class="h-full overflow-y-auto md:flex md:w-full">
+                    <div class="h-full overflow-y-auto md:flex md:w-full md:h-full">
                         <!-- 左侧：推荐广告区域 -->
-                        <div class="md:w-1/3 bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 p-4 md:p-6 border-b md:border-b-0 md:border-r border-purple-300 md:flex-shrink-0 relative overflow-hidden">
+                        <div class="md:w-1/3 bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 p-4 md:p-6 border-b md:border-b-0 md:border-r border-purple-300 md:flex-shrink-0 md:h-full relative overflow-hidden">
                             <!-- 背景装饰 -->
                             <div class="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent"></div>
                             <div class="absolute -top-10 -right-10 w-32 h-32 bg-white/5 rounded-full"></div>
@@ -134,8 +134,19 @@
                         </div>
 
                         <!-- 右侧：配置表单区域 -->
-                        <div class="md:flex-1 p-4 md:p-6">
-                            <div class="w-full space-y-6">
+                        <div class="md:flex-1 md:h-full md:flex md:flex-col p-4 md:p-0">
+                            <!-- PC端：右侧头部 -->
+                            <div class="hidden md:flex justify-between items-center px-6 py-4 border-b border-gray-200 bg-white flex-shrink-0">
+                                <h2 class="text-xl font-semibold text-gray-800">模型配置</h2>
+                                <button @click="closeModal" class="text-gray-400 hover:text-gray-600 p-1">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                            
+                            <!-- 配置内容区域 - 可滚动 -->
+                            <div class="w-full space-y-6 md:flex-1 md:overflow-y-auto md:px-6 md:py-4 md:pr-8">
                                 <!-- 菜谱生成模型配置 -->
                                 <div class="bg-white border border-gray-200 rounded-lg p-4 md:p-6">
                                     <h3 class="text-lg font-semibold text-gray-800 flex items-center mb-4">
@@ -263,13 +274,19 @@
                                     </div>
                                 </div>
                             </div>
+                            
+                            <!-- PC端：右侧区域底部按钮 -->
+                            <div class="hidden md:flex justify-end gap-3 px-6 py-4 border-t border-gray-200 bg-gray-50 flex-shrink-0">
+                                <button @click="resetToDefault" class="px-4 py-2 text-gray-600 border border-gray-300 rounded hover:bg-gray-100 transition-colors text-sm">恢复默认</button>
+                                <button @click="saveSettings" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors text-sm">保存设置</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- 固定底部按钮 -->
-            <div class="flex justify-end gap-3 px-4 py-3 md:px-6 md:py-4 border-t border-gray-200 bg-gray-50 flex-shrink-0">
+            <!-- 移动端：固定底部按钮 -->
+            <div class="md:hidden flex justify-end gap-3 px-4 py-3 border-t border-gray-200 bg-gray-50 flex-shrink-0">
                 <button @click="resetToDefault" class="px-4 py-2 text-gray-600 border border-gray-300 rounded hover:bg-gray-100 transition-colors text-sm">恢复默认</button>
                 <button @click="saveSettings" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors text-sm">保存设置</button>
             </div>
