@@ -1,18 +1,28 @@
 <template>
     <div class="recipe-card bg-white">
         <!-- 菜谱头部 -->
-        <div class="bg-pink-400 text-white p-4 md:p-6 border-b-2 border-black">
-            <div class="flex items-center justify-between">
-                <div class="flex-1">
-                    <h3 class="text-lg font-bold mb-1 line-clamp-2">{{ recipe.name }}</h3>
-                    <div class="flex items-center gap-3 text-sm">
-                        <span class="bg-white/20 px-2 py-1 rounded text-xs"> 👨‍🍳 {{ recipe.cuisine }} </span>
-                        <span>⏱️ {{ formatTime(recipe.cookingTime) }}</span>
-                        <span>📊 {{ difficultyText }}</span>
+        <div class="bg-pink-400 text-white p-3 md:p-6 border-b-2 border-black">
+            <div class="flex items-start justify-between gap-2">
+                <div class="flex-1 min-w-0">
+                    <h3 class="text-base md:text-lg font-bold mb-2 line-clamp-2">{{ recipe.name }}</h3>
+                    <!-- 移动端：垂直布局 -->
+                    <div class="flex flex-col gap-1 md:hidden">
+                        <div class="flex items-center gap-2">
+                            <span class="bg-white/20 px-2 py-1 rounded text-xs whitespace-nowrap"> 👨‍🍳 {{ recipe.cuisine }} </span>
+                            <span class="text-xs whitespace-nowrap">📊 {{ difficultyText }}</span>
+                        </div>
+                        <div class="text-xs">
+                            <span>⏱️ {{ formatTime(recipe.cookingTime) }}</span>
+                        </div>
+                    </div>
+                    <!-- 桌面端：水平布局 -->
+                    <div class="hidden md:flex items-center gap-3 text-sm">
+                        <span class="bg-white/20 px-2 py-1 rounded text-xs whitespace-nowrap"> 👨‍🍳 {{ recipe.cuisine }} </span>
+                        <span class="whitespace-nowrap">⏱️ {{ formatTime(recipe.cookingTime) }}</span>
+                        <span class="whitespace-nowrap">📊 {{ difficultyText }}</span>
                     </div>
                 </div>
-                <div class="flex items-center gap-2 ml-2">
-                    <!-- <div class="text-2xl">🍽️</div> -->
+                <div class="flex items-center gap-2 flex-shrink-0">
                     <!-- 收藏按钮 -->
                     <FavoriteButton v-if="showFavoriteButton" :recipe="recipe" @favorite-changed="onFavoriteChanged" />
                 </div>
@@ -208,11 +218,7 @@
     </div>
 
     <!-- 图片弹窗 -->
-    <ImageModal
-        v-if="showImageModal && generatedImage"
-        :image="getModalImageData()!"
-        @close="closeImageModal"
-    />
+    <ImageModal v-if="showImageModal && generatedImage" :image="getModalImageData()!" @close="closeImageModal" />
 </template>
 
 <script setup lang="ts">
@@ -432,7 +438,7 @@ const closeImageModal = () => {
 // 创建适配ImageModal的图片数据
 const getModalImageData = (): GalleryImage | null => {
     if (!generatedImage.value) return null
-    
+
     return {
         id: generatedImage.value.id,
         url: generatedImage.value.url,

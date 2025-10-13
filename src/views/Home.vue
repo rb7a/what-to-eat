@@ -441,7 +441,19 @@
                                                     <span class="animate-pulse">👨‍🍳</span>
                                                     {{ cuisineInfo.name }}创作中...
                                                 </h3>
-                                                <div class="flex items-center gap-3 text-sm">
+                                                <!-- 移动端：垂直布局 -->
+                                                <div class="flex flex-col gap-1 md:hidden">
+                                                    <div class="flex items-center gap-2">
+                                                        <span class="bg-white/20 px-2 py-1 rounded text-xs animate-pulse">{{ cuisineInfo.name }}</span>
+                                                        <span class="text-xs">📊 精心制作</span>
+                                                    </div>
+                                                    <div class="flex items-center gap-1 text-xs">
+                                                        <span class="animate-spin">⏱️</span>
+                                                        <span>预计10-20秒</span>
+                                                    </div>
+                                                </div>
+                                                <!-- 桌面端：水平布局 -->
+                                                <div class="hidden md:flex items-center gap-3 text-sm">
                                                     <span class="bg-white/20 px-2 py-1 rounded text-xs animate-pulse">{{ cuisineInfo.name }}</span>
                                                     <span class="flex items-center gap-1">
                                                         <span class="animate-spin">⏱️</span>
