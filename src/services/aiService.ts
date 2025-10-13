@@ -556,21 +556,27 @@ export const getNutritionAnalysis = async (recipe: Recipe): Promise<NutritionAna
  */
 export const getWinePairing = async (recipe: Recipe): Promise<WinePairing> => {
     try {
-        const prompt = `请为以下菜谱推荐合适的酒水搭配：
+        const prompt = `请为以下菜谱推荐合适的饮品搭配：
 菜名：${recipe.name}
 菜系：${recipe.cuisine}
 食材：${recipe.ingredients.join('、')}
 
-请按照以下JSON格式返回酒水搭配建议：
+请推荐接地气的饮品，包括但不限于：
+- 常见饮料：可乐、雪碧、橙汁、柠檬汁、苏打水、果汁等
+- 茶饮：绿茶、红茶、乌龙茶、花茶、奶茶等
+- 酒类：红酒、白酒、啤酒、清酒等（适合的话）
+- 其他：豆浆、牛奶、酸奶、气泡水等
+
+请按照以下JSON格式返回饮品搭配建议：
 {
-  "name": "推荐酒水名称",
-  "type": "red_wine",
+  "name": "推荐饮品名称",
+  "type": "soft_drink/tea/juice/alcoholic/dairy/other",
   "reason": "搭配理由说明",
-  "servingTemperature": "16-18°C",
-  "glassType": "波尔多杯",
-  "alcoholContent": "13.5%",
-  "flavor": "风味描述",
-  "origin": "产地"
+  "servingTemperature": "冰镇/常温/热饮",
+  "glassType": "杯子类型（可选）",
+  "alcoholContent": "酒精度（无酒精填0%）",
+  "flavor": "口感描述",
+  "origin": "品牌或产地（可选）"
 }`
 
         const aiClient = createAiClient()
@@ -581,7 +587,8 @@ export const getWinePairing = async (recipe: Recipe): Promise<WinePairing> => {
             messages: [
                 {
                     role: 'system',
-                    content: '你是一位专业的侍酒师，请根据菜谱信息推荐合适的酒水搭配。请严格按照JSON格式返回，不要包含任何其他文字。'
+                    content:
+                        '你是一位专业的饮品搭配师，请根据菜谱信息推荐合适的饮品搭配。优先推荐接地气的常见饮料，如可乐、雪碧、果汁、茶饮等，让普通家庭也能轻松享用。请严格按照JSON格式返回，不要包含任何其他文字。'
                 },
                 {
                     role: 'user',
@@ -651,105 +658,201 @@ const generateFallbackNutrition = (ingredients: string[]): NutritionAnalysis => 
     }
 }
 
-// 生成后备酒水搭配数据
+// 生成后备饮品搭配数据
 const generateFallbackWinePairing = (cuisine: CuisineType, ingredients: string[]): WinePairing => {
     const hasSpicy = ingredients.some(ing => ['辣椒', '花椒', '胡椒', '姜', '蒜', '洋葱'].some(spice => ing.includes(spice)))
     const hasMeat = ingredients.some(ing => ['肉', '鸡', '鱼', '虾', '蛋', '牛', '猪', '羊'].some(meat => ing.includes(meat)))
     const hasSeafood = ingredients.some(ing => ['鱼', '虾', '蟹', '贝', '海带', '紫菜'].some(seafood => ing.includes(seafood)))
-    const isLight = ingredients.some(ing => ['菜', '瓜', '豆腐', '蛋'].some(light => ing.includes(light)))
+    const isSweet = ingredients.some(ing => ['糖', '蜂蜜', '红薯', '南瓜', '玉米'].some(sweet => ing.includes(sweet)))
+    const isOily = ingredients.some(ing => ['油', '肥肉', '五花肉', '排骨'].some(oil => ing.includes(oil)))
 
-    const cuisineWineMap: Record<string, Partial<WinePairing>> = {
+    // 接地气的饮品搭配方案
+    const cuisineDrinkMap: Record<string, WinePairing> = {
         川菜大师: {
-            name: '德国雷司令',
-            type: 'white_wine',
-            reason: '雷司令的甜度和酸度能很好地平衡川菜的麻辣，清洁口腔',
-            servingTemperature: '8-10°C',
-            glassType: '雷司令杯',
-            alcoholContent: '11-12%',
-            flavor: '清新果香，微甜带酸',
-            origin: '德国莱茵河谷'
+            name: '冰镇可乐',
+            type: 'soft_drink',
+            reason: '可乐的甜味和气泡能很好地平衡川菜的麻辣，清洁口腔，是最受欢迎的搭配',
+            servingTemperature: '冰镇',
+            glassType: '玻璃杯',
+            alcoholContent: '0%',
+            flavor: '甜味气泡，清爽解腻',
+            origin: '可口可乐/百事可乐'
         },
         粤菜大师: {
-            name: '香槟',
-            type: 'white_wine',
-            reason: '香槟的气泡和酸度与粤菜的清淡鲜美完美搭配',
-            servingTemperature: '6-8°C',
-            glassType: '香槟杯',
-            alcoholContent: '12%',
-            flavor: '清爽气泡，柑橘香气',
-            origin: '法国香槟区'
+            name: '柠檬蜂蜜茶',
+            type: 'tea',
+            reason: '柠檬的酸甜和蜂蜜的清香与粤菜的清淡鲜美完美搭配，有助消化',
+            servingTemperature: '温热',
+            glassType: '茶杯',
+            alcoholContent: '0%',
+            flavor: '酸甜清香，温润解腻',
+            origin: '茶餐厅经典'
+        },
+        湘菜大师: {
+            name: '雪碧',
+            type: 'soft_drink',
+            reason: '雪碧的柠檬味和气泡能中和湘菜的辣味，清爽解腻',
+            servingTemperature: '冰镇',
+            glassType: '玻璃杯',
+            alcoholContent: '0%',
+            flavor: '柠檬气泡，清新解辣',
+            origin: '雪碧'
         },
         日式料理大师: {
-            name: '清酒',
-            type: 'sake',
-            reason: '清酒的清淡甘甜与日式料理的鲜美本味相得益彰',
-            servingTemperature: '10-15°C',
-            glassType: '清酒杯',
-            alcoholContent: '15-16%',
-            flavor: '清香甘甜，口感顺滑',
-            origin: '日本'
+            name: '绿茶',
+            type: 'tea',
+            reason: '绿茶的清香淡雅与日式料理的鲜美本味相得益彰，传统经典搭配',
+            servingTemperature: '温热',
+            glassType: '茶杯',
+            alcoholContent: '0%',
+            flavor: '清香甘甜，回味悠长',
+            origin: '日本煎茶'
+        },
+        韩式料理大师: {
+            name: '大麦茶',
+            type: 'tea',
+            reason: '大麦茶的清香能平衡韩式料理的重口味，是韩国餐厅的经典搭配',
+            servingTemperature: '温热或冰镇',
+            glassType: '茶杯',
+            alcoholContent: '0%',
+            flavor: '清香淡雅，去油解腻',
+            origin: '韩式大麦茶'
         }
     }
 
-    let winePairing = cuisineWineMap[cuisine.name] || {}
+    let drinkPairing: Partial<WinePairing> = cuisineDrinkMap[cuisine.name] || {}
 
-    if (!winePairing.name) {
+    if (!drinkPairing.name) {
         if (hasSpicy) {
-            winePairing = {
-                name: '德国雷司令',
-                type: 'white_wine',
-                reason: '甜白酒能很好地平衡辛辣食物，清洁口腔',
-                servingTemperature: '8-10°C',
-                glassType: '白酒杯',
-                alcoholContent: '11-12%',
-                flavor: '果香浓郁，微甜清新',
-                origin: '德国'
-            }
+            // 辣菜搭配解辣饮品
+            const spicyDrinks: WinePairing[] = [
+                {
+                    name: '冰镇可乐',
+                    type: 'soft_drink',
+                    reason: '可乐的甜味和气泡能很好地平衡辛辣食物，是最受欢迎的解辣饮品',
+                    servingTemperature: '冰镇',
+                    alcoholContent: '0%',
+                    flavor: '甜味气泡，清爽解辣'
+                },
+                {
+                    name: '酸梅汤',
+                    type: 'juice',
+                    reason: '酸梅汤的酸甜能中和辣味，传统的解辣饮品',
+                    servingTemperature: '冰镇',
+                    alcoholContent: '0%',
+                    flavor: '酸甜开胃，生津止渴'
+                },
+                {
+                    name: '冰镇雪碧',
+                    type: 'soft_drink',
+                    reason: '雪碧的柠檬味清新，气泡感强，很好地缓解辣味',
+                    servingTemperature: '冰镇',
+                    alcoholContent: '0%',
+                    flavor: '柠檬气泡，清新解辣'
+                }
+            ]
+            drinkPairing = spicyDrinks[Math.floor(Math.random() * spicyDrinks.length)]
+        } else if (isOily || hasMeat) {
+            // 油腻或肉类搭配解腻饮品
+            const meatDrinks: WinePairing[] = [
+                {
+                    name: '柠檬汁',
+                    type: 'juice',
+                    reason: '柠檬的酸味能很好地解腻，促进消化',
+                    servingTemperature: '冰镇',
+                    alcoholContent: '0%',
+                    flavor: '酸甜清香，解腻开胃'
+                },
+                {
+                    name: '乌龙茶',
+                    type: 'tea',
+                    reason: '乌龙茶有很好的去油解腻效果，是肉类菜品的经典搭配',
+                    servingTemperature: '热饮',
+                    alcoholContent: '0%',
+                    flavor: '清香回甘，去油解腻'
+                },
+                {
+                    name: '橙汁',
+                    type: 'juice',
+                    reason: '橙汁的维生素C和酸味能平衡油腻感，口感清新',
+                    servingTemperature: '冰镇',
+                    alcoholContent: '0%',
+                    flavor: '酸甜果香，清新解腻'
+                }
+            ]
+            drinkPairing = meatDrinks[Math.floor(Math.random() * meatDrinks.length)]
         } else if (hasSeafood) {
-            winePairing = {
-                name: '长相思白酒',
-                type: 'white_wine',
-                reason: '白酒的酸度和矿物质感与海鲜的鲜味完美搭配',
-                servingTemperature: '8-10°C',
-                glassType: '白酒杯',
-                alcoholContent: '12-13%',
-                flavor: '清新草本，柑橘香气',
-                origin: '新西兰'
-            }
-        } else if (hasMeat && !isLight) {
-            winePairing = {
-                name: '赤霞珠红酒',
-                type: 'red_wine',
-                reason: '红酒的单宁与肉类的蛋白质结合，提升整体风味',
-                servingTemperature: '16-18°C',
-                glassType: '波尔多杯',
-                alcoholContent: '13-14%',
-                flavor: '浓郁果香，单宁丰富',
-                origin: '法国波尔多'
-            }
-        } else {
-            winePairing = {
+            // 海鲜搭配清淡饮品
+            const seafoodDrinks: WinePairing[] = [
+                {
+                    name: '柠檬苏打水',
+                    type: 'soft_drink',
+                    reason: '柠檬苏打水的清新口感与海鲜的鲜味完美搭配，不会掩盖海鲜本味',
+                    servingTemperature: '冰镇',
+                    alcoholContent: '0%',
+                    flavor: '清新气泡，柠檬香气'
+                },
+                {
+                    name: '白葡萄汁',
+                    type: 'juice',
+                    reason: '白葡萄汁的清甜与海鲜的鲜美相得益彰',
+                    servingTemperature: '冰镇',
+                    alcoholContent: '0%',
+                    flavor: '清甜果香，口感清淡'
+                }
+            ]
+            drinkPairing = seafoodDrinks[Math.floor(Math.random() * seafoodDrinks.length)]
+        } else if (isSweet) {
+            // 甜味菜品搭配平衡饮品
+            drinkPairing = {
                 name: '绿茶',
                 type: 'tea',
-                reason: '绿茶的清香淡雅与清淡菜品相得益彰，有助消化',
-                servingTemperature: '70-80°C',
-                glassType: '茶杯',
+                reason: '绿茶的清香能平衡甜腻感，清洁口腔',
+                servingTemperature: '温热',
                 alcoholContent: '0%',
-                flavor: '清香淡雅，回甘甜美',
-                origin: '中国'
+                flavor: '清香淡雅，平衡甜腻'
             }
+        } else {
+            // 清淡菜品的通用搭配
+            const lightDrinks: WinePairing[] = [
+                {
+                    name: '柠檬蜂蜜水',
+                    type: 'other',
+                    reason: '柠檬蜂蜜水清香甘甜，与清淡菜品搭配和谐',
+                    servingTemperature: '温热或冰镇',
+                    alcoholContent: '0%',
+                    flavor: '酸甜清香，温润怡人'
+                },
+                {
+                    name: '苹果汁',
+                    type: 'juice',
+                    reason: '苹果汁口感清甜，不会抢夺菜品风头',
+                    servingTemperature: '冰镇',
+                    alcoholContent: '0%',
+                    flavor: '清甜果香，口感顺滑'
+                },
+                {
+                    name: '茉莉花茶',
+                    type: 'tea',
+                    reason: '茉莉花茶清香淡雅，与清淡菜品相得益彰',
+                    servingTemperature: '温热',
+                    alcoholContent: '0%',
+                    flavor: '花香清雅，回味甘甜'
+                }
+            ]
+            drinkPairing = lightDrinks[Math.floor(Math.random() * lightDrinks.length)]
         }
     }
 
     return {
-        name: winePairing.name || '绿茶',
-        type: winePairing.type || 'tea',
-        reason: winePairing.reason || '经典搭配，有助消化',
-        servingTemperature: winePairing.servingTemperature || '常温',
-        glassType: winePairing.glassType,
-        alcoholContent: winePairing.alcoholContent,
-        flavor: winePairing.flavor || '清香怡人',
-        origin: winePairing.origin
+        name: drinkPairing.name || '柠檬蜂蜜水',
+        type: drinkPairing.type || 'other',
+        reason: drinkPairing.reason || '经典搭配，清香怡人',
+        servingTemperature: drinkPairing.servingTemperature || '常温',
+        glassType: drinkPairing.glassType || '玻璃杯',
+        alcoholContent: drinkPairing.alcoholContent || '0%',
+        flavor: drinkPairing.flavor || '清香怡人',
+        origin: drinkPairing.origin || '家常饮品'
     }
 }
 

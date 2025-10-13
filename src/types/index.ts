@@ -61,16 +61,16 @@ export interface NutritionAnalysis {
     servingSize: string // 建议份量
 }
 
-// 酒水搭配
+// 饮品搭配（原酒水搭配）
 export interface WinePairing {
-    name: string // 酒水名称
-    type: 'red_wine' | 'white_wine' | 'beer' | 'sake' | 'tea' | 'cocktail' | 'spirits' | 'non_alcoholic' // 酒水类型
+    name: string // 饮品名称
+    type: 'red_wine' | 'white_wine' | 'beer' | 'sake' | 'tea' | 'cocktail' | 'spirits' | 'non_alcoholic' | 'soft_drink' | 'juice' | 'dairy' | 'other' // 饮品类型
     reason: string // 搭配理由
-    servingTemperature: string // 侍酒温度
-    glassType?: string // 推荐酒杯
+    servingTemperature: string // 饮用温度
+    glassType?: string // 推荐杯子
     alcoholContent?: string // 酒精度
-    flavor: string // 风味描述
-    origin?: string // 产地
+    flavor: string // 口感描述
+    origin?: string // 品牌或产地
 }
 
 // 收藏菜谱类型
