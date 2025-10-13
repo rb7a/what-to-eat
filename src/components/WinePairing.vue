@@ -13,7 +13,7 @@
                     </div>
                     <div v-if="winePairing.alcoholContent" class="text-right">
                         <div class="text-sm font-bold text-purple-600">{{ winePairing.alcoholContent }}</div>
-                        <div class="text-xs text-gray-500">酒精度</div>
+                        <div class="text-xs text-gray-500">{{ winePairing.alcoholContent === '0%' ? '无酒精' : '酒精度' }}</div>
                     </div>
                 </div>
 
@@ -34,14 +34,14 @@
                     <div class="bg-blue-50 rounded p-2 border border-blue-200">
                         <div class="flex items-center gap-1 mb-1">
                             <span>🌡️</span>
-                            <span class="font-bold text-blue-700">侍酒温度</span>
+                            <span class="font-bold text-blue-700">饮用温度</span>
                         </div>
                         <p class="text-blue-800">{{ winePairing.servingTemperature }}</p>
                     </div>
                     <div v-if="winePairing.glassType" class="bg-amber-50 rounded p-2 border border-amber-200">
                         <div class="flex items-center gap-1 mb-1">
                             <span>🥂</span>
-                            <span class="font-bold text-amber-700">推荐酒杯</span>
+                            <span class="font-bold text-amber-700">推荐容器</span>
                         </div>
                         <p class="text-amber-800">{{ winePairing.glassType }}</p>
                     </div>
@@ -80,9 +80,13 @@ const getWineIcon = (type: string): string => {
         tea: '🍵',
         cocktail: '🍸',
         spirits: '🥃',
-        non_alcoholic: '🥤'
+        non_alcoholic: '🥤',
+        soft_drink: '🥤',
+        juice: '🧃',
+        dairy: '🥛',
+        other: '🥤'
     }
-    return iconMap[type] || '🍷'
+    return iconMap[type] || '🥤'
 }
 
 const getWineTypeText = (type: string): string => {
@@ -94,9 +98,13 @@ const getWineTypeText = (type: string): string => {
         tea: '茶饮',
         cocktail: '鸡尾酒',
         spirits: '烈酒',
-        non_alcoholic: '无酒精饮品'
+        non_alcoholic: '无酒精饮品',
+        soft_drink: '碳酸饮料',
+        juice: '果汁',
+        dairy: '乳制品',
+        other: '其他饮品'
     }
-    return typeMap[type] || '酒水'
+    return typeMap[type] || '饮品'
 }
 
 const getWineTip = (type: string): string => {
@@ -108,7 +116,11 @@ const getWineTip = (type: string): string => {
         tea: '茶水温度不宜过高，85°C左右最佳，可以多次冲泡，每次品味不同层次。',
         cocktail: '鸡尾酒应现调现饮，注意冰块的使用和装饰的搭配。',
         spirits: '烈酒可纯饮或加冰，小口品尝，感受酒体的复杂层次。',
-        non_alcoholic: '无酒精饮品同样注重温度和新鲜度，可根据个人喜好调整甜度。'
+        non_alcoholic: '无酒精饮品同样注重温度和新鲜度，可根据个人喜好调整甜度。',
+        soft_drink: '碳酸饮料冰镇后饮用口感更佳，开启后尽快饮用以保持气泡感。',
+        juice: '果汁最好现榨现饮，冷藏保存，饮用前可适当摇匀。',
+        dairy: '乳制品注意保质期，开封后冷藏保存，温度适宜时口感最佳。',
+        other: '根据饮品特性选择合适的饮用温度和方式，享受最佳口感。'
     }
     return tipMap[type] || '适量饮用，品味生活。'
 }
