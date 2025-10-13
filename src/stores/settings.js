@@ -3,16 +3,16 @@ import { ref, reactive } from 'vue'
 // 默认配置（从环境变量读取）
 const getDefaultSettings = () => ({
     textGeneration: {
-        baseUrl: import.meta.env.VITE_TEXT_GENERATION_BASE_URL || 'https://api.lingyiwanwu.com/v1/',
-        apiKey: import.meta.env.VITE_TEXT_GENERATION_API_KEY || '',
-        model: import.meta.env.VITE_TEXT_GENERATION_MODEL || 'yi-lightning',
+        baseUrl: import.meta.env.VITE_TEXT_GENERATION_BASE_URL,
+        apiKey: import.meta.env.VITE_TEXT_GENERATION_API_KEY,
+        model: import.meta.env.VITE_TEXT_GENERATION_MODEL,
         temperature: parseFloat(import.meta.env.VITE_TEXT_GENERATION_TEMPERATURE) || 0.7,
         timeout: parseInt(import.meta.env.VITE_TEXT_GENERATION_TIMEOUT) || 300000
     },
     imageGeneration: {
-        baseUrl: import.meta.env.VITE_IMAGE_GENERATION_BASE_URL || 'https://open.bigmodel.cn/api/paas/v4/',
-        apiKey: import.meta.env.VITE_IMAGE_GENERATION_API_KEY || '',
-        model: import.meta.env.VITE_IMAGE_GENERATION_MODEL || 'cogview-3-flash'
+        baseUrl: import.meta.env.VITE_IMAGE_GENERATION_BASE_URL,
+        apiKey: import.meta.env.VITE_IMAGE_GENERATION_API_KEY,
+        model: import.meta.env.VITE_IMAGE_GENERATION_MODEL
     }
 })
 
@@ -21,16 +21,16 @@ const getLatestEnvSettings = () => {
     // 强制重新读取环境变量
     return {
         textGeneration: {
-            baseUrl: import.meta.env.VITE_TEXT_GENERATION_BASE_URL || 'https://api.lingyiwanwu.com/v1/',
-            apiKey: import.meta.env.VITE_TEXT_GENERATION_API_KEY || '',
-            model: import.meta.env.VITE_TEXT_GENERATION_MODEL || 'yi-lightning',
+            baseUrl: import.meta.env.VITE_TEXT_GENERATION_BASE_URL,
+            apiKey: import.meta.env.VITE_TEXT_GENERATION_API_KEY,
+            model: import.meta.env.VITE_TEXT_GENERATION_MODEL,
             temperature: parseFloat(import.meta.env.VITE_TEXT_GENERATION_TEMPERATURE) || 0.7,
             timeout: parseInt(import.meta.env.VITE_TEXT_GENERATION_TIMEOUT) || 300000
         },
         imageGeneration: {
-            baseUrl: import.meta.env.VITE_IMAGE_GENERATION_BASE_URL || 'https://open.bigmodel.cn/api/paas/v4/',
-            apiKey: import.meta.env.VITE_IMAGE_GENERATION_API_KEY || '',
-            model: import.meta.env.VITE_IMAGE_GENERATION_MODEL || 'cogview-3-flash'
+            baseUrl: import.meta.env.VITE_IMAGE_GENERATION_BASE_URL,
+            apiKey: import.meta.env.VITE_IMAGE_GENERATION_API_KEY,
+            model: import.meta.env.VITE_IMAGE_GENERATION_MODEL
         }
     }
 }
