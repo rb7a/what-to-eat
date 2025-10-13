@@ -17,7 +17,7 @@
         <div class="bg-white w-full h-full flex flex-col">
             <!-- 固定头部 -->
             <div class="flex justify-between items-center px-4 py-3 md:px-6 md:py-4 border-b border-gray-200 bg-white flex-shrink-0">
-                <h2 class="text-lg md:text-xl font-semibold text-gray-800">系统设置</h2>
+                <h2 class="text-lg md:text-xl font-semibold text-gray-800">模型配置</h2>
                 <button @click="closeModal" class="text-gray-400 hover:text-gray-600 p-1">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
