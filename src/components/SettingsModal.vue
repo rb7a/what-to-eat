@@ -87,13 +87,14 @@
                             <div class="space-y-3 md:space-y-4">
                                 <!-- API地址单独一行 -->
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">API地址<span class="text-xs">（省略：/chat/completions）</span></label>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">API地址</label>
                                     <input
                                         v-model="textConfig.baseUrl"
                                         type="text"
                                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                                         placeholder="https://api.example.com/v1/"
                                     />
+                                    <p class="text-xs text-gray-500 mt-1">基础API地址，系统会自动添加 /chat/completions 路径</p>
                                 </div>
 
                                 <!-- 其他配置项两列布局 -->
@@ -128,6 +129,7 @@
                                             step="0.1"
                                             class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                                         />
+                                        <p class="text-xs text-gray-500 mt-1">控制回答的创造性，0.7为推荐值</p>
                                     </div>
 
                                     <div>
@@ -138,6 +140,7 @@
                                             class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                                             placeholder="300000"
                                         />
+                                        <p class="text-xs text-gray-500 mt-1">API请求超时时间，建议300000毫秒(5分钟)</p>
                                     </div>
                                 </div>
                             </div>
@@ -176,13 +179,14 @@
                             <div class="space-y-3 md:space-y-4">
                                 <!-- API地址单独一行 -->
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">API地址<span class="text-xs">（生成图片全地址）</span></label>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">API地址</label>
                                     <input
                                         v-model="imageConfig.baseUrl"
                                         type="text"
                                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-                                        placeholder="https://api.example.com/v4/"
+                                        placeholder="https://api.example.com/v4/images/generations"
                                     />
+                                    <p class="text-xs text-gray-500 mt-1">图片生成API的完整地址，包含具体的端点路径</p>
                                 </div>
 
                                 <!-- 其他配置项两列布局 -->
@@ -260,12 +264,17 @@ const imageConfig = reactive({
     model: ''
 })
 
-// 监听弹窗显示状态，加载当前配置
+// 监听弹窗显示状态，加载当前配置并控制背景滚动
 watch(
     () => props.isVisible,
     visible => {
         if (visible) {
             loadCurrentSettings()
+            // 阻止背景页面滚动
+            document.body.style.overflow = 'hidden'
+        } else {
+            // 恢复背景页面滚动
+            document.body.style.overflow = ''
         }
     }
 )
