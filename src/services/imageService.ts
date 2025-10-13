@@ -13,7 +13,7 @@ export const generateRecipeImage = async (recipe: Recipe): Promise<GeneratedImag
     // 构建图片生成的提示词
     const prompt = buildImagePrompt(recipe)
 
-    const sizeToUse = { width: 1024, height: 1024 }
+    const sizeToUse = { width: 1152, height: 896 }
 
     try {
         const response = await fetch(config.baseUrl, {

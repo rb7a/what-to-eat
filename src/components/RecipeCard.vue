@@ -94,23 +94,7 @@
 
             <!-- 营养分析 -->
             <div v-if="isExpanded" class="mb-4">
-                <div class="flex items-center justify-between mb-3">
-                    <h4 class="text-sm font-bold text-dark-800 flex items-center gap-1">📊 营养分析</h4>
-                    <button
-                        @click="fetchNutritionAnalysis"
-                        :disabled="isFetchingNutrition"
-                        class="bg-green-500 hover:bg-green-600 disabled:bg-gray-400 text-white px-3 py-1 rounded text-xs font-medium border border-black transition-all duration-200 disabled:cursor-not-allowed"
-                    >
-                        <span class="flex items-center gap-1">
-                            <template v-if="isFetchingNutrition">
-                                <div class="animate-spin w-3 h-3 border border-white border-t-transparent rounded-full"></div>
-                                获取中...
-                            </template>
-                            <template v-else-if="recipe.nutritionAnalysis"> 🔄 重新获取 </template>
-                            <template v-else> ✨ 获取营养分析 </template>
-                        </span>
-                    </button>
-                </div>
+                <h4 class="text-sm font-bold text-dark-800 mb-3 flex items-center gap-1">📊 营养分析</h4>
 
                 <div v-if="isFetchingNutrition" class="bg-gray-50 border-2 border-gray-300 rounded-lg p-6 text-center">
                     <div class="w-12 h-12 border-4 border-gray-300 border-t-green-500 rounded-full animate-spin mx-auto mb-3"></div>
@@ -123,35 +107,44 @@
                 </div>
 
                 <NutritionAnalysis v-if="recipe.nutritionAnalysis" :nutritionAnalysis="recipe.nutritionAnalysis" />
-                <div v-else-if="!isFetchingNutrition" class="bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
-                    <div class="text-gray-400 text-2xl mb-2">🥗</div>
-                    <p class="text-gray-500 text-xs">点击上方按钮获取营养分析</p>
-                </div>
-            </div>
 
-            <!-- 酒水搭配 -->
-            <div v-if="isExpanded" class="mb-4">
-                <div class="flex items-center justify-between mb-3">
-                    <h4 class="text-sm font-bold text-dark-800 flex items-center gap-1">🍷 酒水搭配</h4>
+                <!-- 营养分析空状态 - 包含获取按钮 -->
+                <div v-else-if="!isFetchingNutrition" class="bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:bg-gray-50 transition-colors">
+                    <div class="text-gray-400 text-2xl mb-3">🥗</div>
+                    <p class="text-gray-500 text-xs mb-4">暂无营养分析数据</p>
                     <button
-                        @click="fetchWinePairing"
-                        :disabled="isFetchingWine"
-                        class="bg-purple-500 hover:bg-purple-600 disabled:bg-gray-400 text-white px-3 py-1 rounded text-xs font-medium border border-black transition-all duration-200 disabled:cursor-not-allowed"
+                        @click="fetchNutritionAnalysis"
+                        :disabled="isFetchingNutrition"
+                        class="bg-green-500 hover:bg-green-600 disabled:bg-gray-400 text-white px-4 py-2 rounded text-xs font-medium border border-black transition-all duration-200 disabled:cursor-not-allowed"
                     >
                         <span class="flex items-center gap-1">
-                            <template v-if="isFetchingWine">
+                            <template v-if="isFetchingNutrition">
                                 <div class="animate-spin w-3 h-3 border border-white border-t-transparent rounded-full"></div>
                                 获取中...
                             </template>
-                            <template v-else-if="recipe.winePairing"> 🔄 重新获取 </template>
-                            <template v-else> ✨ 获取酒水搭配 </template>
+                            <template v-else> ✨ 获取营养分析 </template>
                         </span>
                     </button>
                 </div>
 
+                <!-- 重新获取按钮 - 当已有数据时显示 -->
+                <!-- <div v-if="recipe.nutritionAnalysis && !isFetchingNutrition" class="mt-3 text-center">
+                    <button
+                        @click="fetchNutritionAnalysis"
+                        class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-xs font-medium border border-black transition-all duration-200"
+                    >
+                        🔄 重新获取
+                    </button>
+                </div> -->
+            </div>
+
+            <!-- 饮品搭配 -->
+            <div v-if="isExpanded" class="mb-4">
+                <h4 class="text-sm font-bold text-dark-800 mb-3 flex items-center gap-1">🥤 饮品搭配</h4>
+
                 <div v-if="isFetchingWine" class="bg-gray-50 border-2 border-gray-300 rounded-lg p-6 text-center">
                     <div class="w-12 h-12 border-4 border-gray-300 border-t-purple-500 rounded-full animate-spin mx-auto mb-3"></div>
-                    <h5 class="text-sm font-bold text-dark-800 mb-1">侍酒师正在推荐中...</h5>
+                    <h5 class="text-sm font-bold text-dark-800 mb-1">饮品师正在推荐中...</h5>
                     <p class="text-gray-600 text-xs">{{ wineLoadingText }}</p>
                 </div>
 
@@ -160,20 +153,72 @@
                 </div>
 
                 <WinePairing v-if="recipe.winePairing" :winePairing="recipe.winePairing" />
-                <div v-else-if="!isFetchingWine" class="bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
-                    <div class="text-gray-400 text-2xl mb-2">🍾</div>
-                    <p class="text-gray-500 text-xs">点击上方按钮获取酒水搭配</p>
+
+                <!-- 饮品搭配空状态 - 包含获取按钮 -->
+                <div v-else-if="!isFetchingWine" class="bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:bg-gray-50 transition-colors">
+                    <div class="text-gray-400 text-2xl mb-3">🥤</div>
+                    <p class="text-gray-500 text-xs mb-4">暂无饮品搭配推荐</p>
+                    <button
+                        @click="fetchWinePairing"
+                        :disabled="isFetchingWine"
+                        class="bg-purple-500 hover:bg-purple-600 disabled:bg-gray-400 text-white px-4 py-2 rounded text-xs font-medium border border-black transition-all duration-200 disabled:cursor-not-allowed"
+                    >
+                        <span class="flex items-center gap-1">
+                            <template v-if="isFetchingWine">
+                                <div class="animate-spin w-3 h-3 border border-white border-t-transparent rounded-full"></div>
+                                获取中...
+                            </template>
+                            <template v-else> ✨ 获取饮品搭配 </template>
+                        </span>
+                    </button>
                 </div>
+
+                <!-- 重新获取按钮 - 当已有数据时显示 -->
+                <!-- <div v-if="recipe.winePairing && !isFetchingWine" class="mt-3 text-center">
+                    <button
+                        @click="fetchWinePairing"
+                        class="bg-purple-500 hover:bg-purple-600 text-white px-3 py-1 rounded text-xs font-medium border border-black transition-all duration-200"
+                    >
+                        🔄 重新获取
+                    </button>
+                </div> -->
             </div>
 
             <!-- 效果图区域 -->
             <div class="mt-4 pt-4 border-t border-gray-200">
-                <div class="flex items-center justify-between mb-3">
-                    <h4 class="text-sm font-bold text-dark-800 flex items-center gap-1">🖼️ 菜品效果图</h4>
+                <h4 class="text-sm font-bold text-dark-800 mb-3 flex items-center gap-1">🖼️ 菜品效果图</h4>
+
+                <!-- 加载状态 -->
+                <div v-if="isGeneratingImage" class="bg-gray-50 border-2 border-gray-300 rounded-lg p-6 text-center">
+                    <div class="w-12 h-12 border-4 border-gray-300 border-t-blue-500 rounded-full animate-spin mx-auto mb-3"></div>
+                    <h5 class="text-sm font-bold text-dark-800 mb-1">AI画师正在创作中...</h5>
+                    <p class="text-gray-600 text-xs">{{ imageLoadingText }}</p>
+                </div>
+
+                <!-- 错误提示 -->
+                <div v-else-if="imageError" class="bg-red-100 border border-red-400 text-red-700 px-3 py-2 rounded text-xs mb-3">
+                    {{ imageError }}
+                </div>
+
+                <!-- 生成的图片 -->
+                <div v-else-if="generatedImage" class="mb-3">
+                    <img
+                        :src="generatedImage.url"
+                        :alt="`${recipe.name}效果图`"
+                        class="w-full object-cover rounded-lg border-2 border-[#0A0910] cursor-pointer transition-all duration-300 hover:brightness-110 hover:scale-[1.02]"
+                        @error="handleImageError"
+                        @click="openImageModal"
+                    />
+                </div>
+
+                <!-- 效果图空状态 - 包含生成按钮 -->
+                <div v-else class="bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg p-10 text-center hover:bg-gray-50 transition-colors">
+                    <div class="text-gray-400 text-2xl mb-3">📷</div>
+                    <p class="text-gray-500 text-xs mb-4">暂无菜品效果图</p>
                     <button
                         @click="generateImage"
                         :disabled="isGeneratingImage"
-                        class="bg-blue-500 hover:bg-blue-600 disabled:bg-gray-400 text-white px-3 py-1 rounded text-xs font-medium border border-black transition-all duration-200 disabled:cursor-not-allowed"
+                        class="bg-blue-500 hover:bg-blue-600 disabled:bg-gray-400 text-white px-4 py-2 rounded text-xs font-medium border border-black transition-all duration-200 disabled:cursor-not-allowed"
                     >
                         <span class="flex items-center gap-1">
                             <template v-if="isGeneratingImage">
@@ -185,33 +230,14 @@
                     </button>
                 </div>
 
-                <!-- 加载状态 -->
-                <div v-if="isGeneratingImage" class="bg-gray-50 border-2 border-gray-300 rounded-lg p-6 text-center">
-                    <div class="w-12 h-12 border-4 border-gray-300 border-t-blue-500 rounded-full animate-spin mx-auto mb-3"></div>
-                    <h5 class="text-sm font-bold text-dark-800 mb-1">AI画师正在创作中...</h5>
-                    <p class="text-gray-600 text-xs">{{ imageLoadingText }}</p>
-                </div>
-
-                <!-- 生成的图片 -->
-                <div v-else-if="generatedImage" class="mb-3">
-                    <img
-                        :src="generatedImage.url"
-                        :alt="`${recipe.name}效果图`"
-                        class="w-full h-[20rem] object-cover rounded-lg border-2 border-[#0A0910] cursor-pointer transition-all duration-300 hover:brightness-110 hover:scale-[1.02]"
-                        @error="handleImageError"
-                        @click="openImageModal"
-                    />
-                </div>
-
-                <!-- 错误提示 -->
-                <div v-else-if="imageError" class="bg-red-100 border border-red-400 text-red-700 px-3 py-2 rounded text-xs">
-                    {{ imageError }}
-                </div>
-
-                <!-- 空状态 -->
-                <div v-else class="bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg p-10 text-center">
-                    <div class="text-gray-400 text-2xl mb-2">📷</div>
-                    <p class="text-gray-500 text-xs">点击上方按钮生成菜品效果图</p>
+                <!-- 重新生成按钮 - 当已有图片时显示 -->
+                <div v-if="generatedImage && !isGeneratingImage" class="mt-3 text-center">
+                    <button
+                        @click="generateImage"
+                        class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-xs font-medium border border-black transition-all duration-200"
+                    >
+                        🔄 重新生成
+                    </button>
                 </div>
             </div>
         </div>
@@ -279,11 +305,11 @@ const nutritionLoadingTexts = [
     '营养分析即将完成...'
 ]
 
-// 酒水搭配加载文字轮播
+// 饮品搭配加载文字轮播
 const wineLoadingTexts = [
-    '侍酒师正在推荐中...',
-    '正在匹配风味特征...',
-    '正在考虑酒体平衡...',
+    '饮品师正在推荐中...',
+    '正在匹配口味特征...',
+    '正在考虑饮品平衡...',
     '正在评估搭配效果...',
     '正在选择最佳温度...',
     '正在准备搭配理由...',
@@ -415,8 +441,8 @@ const fetchWinePairing = async () => {
         const pairing = await getWinePairing(props.recipe)
         props.recipe.winePairing = pairing
     } catch (error) {
-        console.error('获取酒水搭配失败:', error)
-        wineError.value = '获取酒水搭配失败，请稍后重试'
+        console.error('获取饮品搭配失败:', error)
+        wineError.value = '获取饮品搭配失败，请稍后重试'
     } finally {
         isFetchingWine.value = false
         clearInterval(interval)
