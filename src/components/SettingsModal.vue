@@ -84,9 +84,10 @@
                         </button>
 
                         <div v-show="isTextConfigExpanded" class="px-3 md:px-4 pb-3 md:pb-4">
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
+                            <div class="space-y-3 md:space-y-4">
+                                <!-- API地址单独一行 -->
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">API地址</label>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">API地址<span class="text-xs">（省略：/chat/completions）</span></label>
                                     <input
                                         v-model="textConfig.baseUrl"
                                         type="text"
@@ -95,46 +96,49 @@
                                     />
                                 </div>
 
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">API密钥</label>
-                                    <input
-                                        v-model="textConfig.apiKey"
-                                        type="password"
-                                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                        placeholder="输入API密钥"
-                                    />
-                                </div>
+                                <!-- 其他配置项两列布局 -->
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">API密钥</label>
+                                        <input
+                                            v-model="textConfig.apiKey"
+                                            type="password"
+                                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            placeholder="输入API密钥"
+                                        />
+                                    </div>
 
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">模型名称</label>
-                                    <input
-                                        v-model="textConfig.model"
-                                        type="text"
-                                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                        placeholder="yi-lightning"
-                                    />
-                                </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">模型名称</label>
+                                        <input
+                                            v-model="textConfig.model"
+                                            type="text"
+                                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            placeholder="yi-lightning"
+                                        />
+                                    </div>
 
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">温度参数 (0-1)</label>
-                                    <input
-                                        v-model.number="textConfig.temperature"
-                                        type="number"
-                                        min="0"
-                                        max="1"
-                                        step="0.1"
-                                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                    />
-                                </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">温度参数 (0-1)</label>
+                                        <input
+                                            v-model.number="textConfig.temperature"
+                                            type="number"
+                                            min="0"
+                                            max="1"
+                                            step="0.1"
+                                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        />
+                                    </div>
 
-                                <div class="md:col-span-2">
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">超时时间 (毫秒)</label>
-                                    <input
-                                        v-model.number="textConfig.timeout"
-                                        type="number"
-                                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                        placeholder="300000"
-                                    />
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">超时时间 (毫秒)</label>
+                                        <input
+                                            v-model.number="textConfig.timeout"
+                                            type="number"
+                                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            placeholder="300000"
+                                        />
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -169,9 +173,10 @@
                         </button>
 
                         <div v-show="isImageConfigExpanded" class="px-3 md:px-4 pb-3 md:pb-4">
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
+                            <div class="space-y-3 md:space-y-4">
+                                <!-- API地址单独一行 -->
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">API地址</label>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">API地址<span class="text-xs">（生成图片全地址）</span></label>
                                     <input
                                         v-model="imageConfig.baseUrl"
                                         type="text"
@@ -180,24 +185,27 @@
                                     />
                                 </div>
 
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">API密钥</label>
-                                    <input
-                                        v-model="imageConfig.apiKey"
-                                        type="password"
-                                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-                                        placeholder="输入API密钥"
-                                    />
-                                </div>
+                                <!-- 其他配置项两列布局 -->
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">API密钥</label>
+                                        <input
+                                            v-model="imageConfig.apiKey"
+                                            type="password"
+                                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                                            placeholder="输入API密钥"
+                                        />
+                                    </div>
 
-                                <div class="md:col-span-2">
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">模型名称</label>
-                                    <input
-                                        v-model="imageConfig.model"
-                                        type="text"
-                                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-                                        placeholder="cogview-3-flash"
-                                    />
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">模型名称</label>
+                                        <input
+                                            v-model="imageConfig.model"
+                                            type="text"
+                                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                                            placeholder="cogview-3-flash"
+                                        />
+                                    </div>
                                 </div>
                             </div>
                         </div>

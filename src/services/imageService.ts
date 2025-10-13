@@ -1,13 +1,5 @@
 import type { Recipe } from '@/types'
-
-// 图片生成模型配置 - 从环境变量读取
-const IMAGE_CONFIG = {
-    apiKey: import.meta.env.VITE_IMAGE_GENERATION_API_KEY,
-    baseURL: import.meta.env.VITE_IMAGE_GENERATION_BASE_URL || 'https://open.bigmodel.cn/api/paas/v4/',
-    model: import.meta.env.VITE_IMAGE_GENERATION_MODEL || 'cogview-3-flash'
-}
-
-const API_URL = `${IMAGE_CONFIG.baseURL}images/generations`
+import { getImageGenerationConfig } from '@/utils/apiConfig'
 
 export interface GeneratedImage {
     url: string
@@ -15,20 +7,23 @@ export interface GeneratedImage {
 }
 
 export const generateRecipeImage = async (recipe: Recipe): Promise<GeneratedImage> => {
+    // 从设置中获取图片生成配置
+    const config = getImageGenerationConfig()
+
     // 构建图片生成的提示词
     const prompt = buildImagePrompt(recipe)
 
     const sizeToUse = { width: 1024, height: 1024 }
 
     try {
-        const response = await fetch(API_URL, {
+        const response = await fetch(config.baseUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: `Bearer ${IMAGE_CONFIG.apiKey}`
+                Authorization: `Bearer ${config.apiKey}`
             },
             body: JSON.stringify({
-                model: IMAGE_CONFIG.model,
+                model: config.model,
                 prompt: prompt,
                 size: `${sizeToUse.width}x${sizeToUse.height}`,
                 n: 1,
