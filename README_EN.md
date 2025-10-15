@@ -86,13 +86,15 @@ npm run preview
 
 ```env
 # Text Generation API (lingyiwanwu.AI)
-VITE_TEXT_GENERATION_BASE_URL=https://api.lingyiwanwu.com/v1/
-VITE_TEXT_GENERATION_API_KEY=your_text_api_key_here
-VITE_TEXT_GENERATION_MODEL=yi-lightning
+VITE_TEXT_GENERATION_BASE_URL=https://api.302ai.cn/v1/
+VITE_TEXT_GENERATION_API_KEY=************
+VITE_TEXT_GENERATION_MODEL=doubao-1.5-pro-32k
+VITE_TEXT_GENERATION_TEMPERATURE=0.7
+VITE_TEXT_GENERATION_TIMEOUT=300000
 
 # Image Generation API (Zhipu AI)
-VITE_IMAGE_GENERATION_BASE_URL=https://open.bigmodel.cn/api/paas/v4/
-VITE_IMAGE_GENERATION_API_KEY=your_image_api_key_here
+VITE_IMAGE_GENERATION_BASE_URL=https://open.bigmodel.cn/api/paas/v4/images/generations
+VITE_IMAGE_GENERATION_API_KEY=******************
 VITE_IMAGE_GENERATION_MODEL=cogview-3-flash
 ```
 
